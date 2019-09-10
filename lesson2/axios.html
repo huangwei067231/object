@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+   
+    </div>
+    <script>
+makeFake()
+
+let model = {
+  data:{
+    name:'',
+    number:0,
+    id:''
+  },
+   fetch(id){
+     return axios.get(`/books/${id}`).then((response)=>{
+       this.data = response.data
+       return response
+     })
+   },
+   updata(id,data){
+     return axios.put(`/books/${id}`,data).then((response)=>{
+         this.data = response.data
+         return response
+      })
+   }
+}
+      
+ let view = {
+   el:'#app',
+   template:`
+       <div>
+         书名：《__name__》
+         数量：<span id="number">__number__</span>
+       </div>
+       <div>
+         <button id="addOne">+</button>
+         <button id="miunsOne">-</button>
+         <button id="reset">归零</button>
+       </div>
+`,
+   render(data){
+     let html = this.response.replace('__name__',data.name).replace('__number__',data.number)
+      $(this.el).html(html)
+   }
+ } 
+ 
+ let controller = {
+    init(options){
+      let view = options.view
+      let model = options.model
+      this.view = view
+      this.model= model
+      this.view.render(this.model.data)
+      this.bindEvents()
+      this.model.fetch(1).then(()=>{
+           this.view.render(this.model.data)
+         })
+    },
+     addOne(){
+          var originalNumber = $('#number').text()
+          var newNumber = $('#number').text() - 0 + 1
+          axios.put('/books/1',{
+            number:newNumber
+          }).then(()=>{
+           this.view.render(this.model.data)
+          })
+     },
+     
+    miunsOne(){
+          var originalNumber = $('#number').text()
+          var newNumber = $('#number').text() - 0 - 1
+         axios.put('/books/1',{
+            number:newNumber
+          }).then(()=>{
+             this.view.render(this.model.data)
+          })
+    },
+   reset(){
+      axios.put('/books/1',{
+            number:0
+          }).then(()=>{
+             this.view.render(this.model.data)
+          })
+   },
+   bindEvents(){
+        $(this.view.el).on('click','#addOne',this.addOne.bind(this))
+        $(this.view.el).on('click','#miunsOne',this.miunsOne.bind(this))
+        $(this.view.el).on('click','#reset',this.reset.bind(this))
+     
+   }
+ }
+ 
+  controller.init({view:view,model:model})    
+        
+        
+        
+function makeFake(){
+  let book = {
+  name : 'javascript高级程序设计',
+  number:2,
+  id:1
+}
+axios.interceptors.response.use((response)=>{
+           let config = response.config
+           let {url,method,data} = config
+          //  let {config:{url,method,data}} = response
+            if(url === '/books/1' && method === 'get'){
+                response.data = book
+             }else if(url ==='/books/1' && method === 'put'){
+               data = JSON.parse(data) 
+               Object.assign(book,data)
+                response.data = book
+             }
+            return response
+    })
+}
+    </script>
+</body>
+</html>

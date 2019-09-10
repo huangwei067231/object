@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  #window{
+    width:400px;
+    height:300px;
+    margin:50px auto;
+    overflow:hidden;
+  }
+  .images{
+   display: flex;
+   transition:all 1s;
+  }
+
+  .images > img{
+   width: 100%;
+ 
+  }
+</style>
+<body>
+  <div id="window">
+    <div id="slides" class="images">
+      <img src="./1.jpg" alt="图片" width="400px" height="300px">
+      <img src="./2.jpg" alt="图片" width="400px" height="300px">
+      <img src="./3.jpg" alt="图片" width="400px" height="300px">
+   </div>
+ </div>
+    <div id="btn" style="text-align: center">
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+   </div>
+ 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+ <script>
+    let $buttons = $('#btn>button')
+    let $slides = $('#slides')
+
+    $buttons.eq(0).on('click',function(){
+      $slides.css({transform:'translateX(0px)'})
+      console.log(1)
+    })
+
+    $buttons.eq(1).on('click',function(){
+      $slides.css({transform:'translateX(-400px)'})
+      console.log(2)
+    })
+
+    $buttons.eq(2).on('click',function(){
+      $slides.css({transform:'translateX(-800px)'})
+      console.log(3)
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#player {
+  height: 100vh;
+  background: #060a3d;
+  overflow: hidden;
+}
+#player .header {
+  height: 158.4px;
+  text-align: center;
+}
+#player .header h1 {
+  color: #fff;
+  font-size: 20px;
+  padding-top: 24px;
+  text-align: center;
+}
+#player .header .songer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+}
+#player .header .songer .line1 {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: #db3baa;
+  border: 1px solid #db3baa;
+  order: 1;
+  margin: 0px 8px;
+}
+#player .header .songer .line2 {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: #db3baa;
+  border: 1px solid #db3baa;
+  order: 3;
+  margin: 0px 8px;
+}
+#player .header .songer p {
+  color: #868aaf;
+  font-size: 12px;
+  order: 2;
+}
+#player .header .yinzi {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 12px;
+}
+#player .header .yinzi div {
+  width: 60px;
+  height: 28px;
+  border-radius: 10%;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding-top: 3px;
+  display: inline-block;
+  border: 1px solid #868aaf;
+  color: #868aaf;
+}
+#player .header .yinzi div.current {
+  border-color: #db3baa;
+  color: #db3baa;
+}
+#player .header .bars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+#player .header .bars span {
+  width: 4px;
+  height: 4px;
+  background: #c02390;
+  border-radius: 50%;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+#player .header .bars span.current {
+  width: 8px;
+  height: 8px;
+  background: #db3baa;
+}
+#player .header .bars span.current.active {
+  width: 8px;
+  height: 8px;
+  background: #db3baa;
+  transform: scale(1.2);
+}
+#player .panels {
+  width: 200vw;
+  display: flex;
+  height: calc( 100vh - 338.4px );
+  transition: transform 0.3s;
+  align-items: center;
+}
+#player .panels.panel1 {
+  transform: translateX(0vw);
+}
+#player .panels.panel2 {
+  transform: translateX(-100vw);
+}
+#player .panels .panel-effect {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#player .panels .panel-effect .effect {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+#player .panels .panel-effect .effect > div {
+  position: absolute;
+  background-size: contain;
+}
+#player .panels .panel-effect .effect .effect-1 {
+  background: url(/effect-no-move.e6a51026.svg);
+  width: 60vw;
+  height: 60vw;
+  animation: rotates 20s linear infinite;
+}
+#player .panels .panel-effect .effect .effect-2 {
+  background: url(/effect-move1.8d0ce205.svg);
+  width: 50vw;
+  height: 50vw;
+  animation: rotates 10s linear infinite reverse;
+}
+#player .panels .panel-effect .effect .effect-3 {
+  background: url(/effect-move2.143040a0.svg);
+  width: 30vw;
+  height: 30vw;
+  animation: rotates 10s linear infinite;
+}
+#player .panels .panel-effect .lyrics {
+  height: 56px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#player .panels .panel-effect .lyrics p {
+  font-size: 14px;
+  color: #868aaf;
+  line-height: 2;
+}
+#player .panels .panel-effect .lyrics p.current {
+  color: #fff;
+}
+#player .panels .panel-lyrics {
+  width: 100vw;
+  height: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+#player .panels .panel-lyrics .contain {
+  transition: all 0.3s;
+  transform: translateY(-100px);
+}
+#player .panels .panel-lyrics .contain p {
+  font-size: 16px;
+  line-height: 2;
+  color: #918b8b;
+}
+#player .panels .panel-lyrics .contain p.current {
+  color: #fff;
+}
+#player .footer {
+  height: 180px;
+}
+#player .footer .area-bar {
+  color: #868aaf;
+  font-size: 12px;
+  display: flex;
+  padding: 0 20px;
+  align-items: center;
+}
+#player .footer .area-bar .time-start {
+  width: 40px;
+  order: 1;
+}
+#player .footer .area-bar .time-end {
+  width: 40px;
+  order: 3;
+}
+#player .footer .area-bar .bar {
+  height: 4px;
+  flex: 1;
+  order: 2;
+  background: #0025f1;
+  border-radius: 2px;
+  margin: 0 8px;
+}
+#player .footer .area-bar .bar .progress {
+  width: 0%;
+  height: 100%;
+  background: #db3baa;
+  border-radius: 2px;
+  position: relative;
+}
+#player .footer .area-bar .bar .progress::after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: -7px;
+  right: -7px;
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background: url(/progress.798a5c76.svg);
+}
+#player .footer .buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+#player .footer .buttons svg {
+  width: 32px;
+  height: 32px;
+}
+#player .footer .buttons svg.btn-play-pause {
+  width: 56px;
+  height: 56px;
+}
+#player .footer .actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+#player .footer .actions svg {
+  width: 32px;
+  height: 32px;
+  margin: 0 32px;
+}
+
+@keyframes rotates {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*# sourceMappingURL=/scss.8c25d549.css.map */

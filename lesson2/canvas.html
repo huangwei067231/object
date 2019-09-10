@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" ctx="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" ctx="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  html,body{
+    margin:0px;
+  }
+  #canvas{
+    display: block;
+   
+  }
+  button{
+    position:fixed;
+    left:0;
+    bottom:0;
+  }
+  #color{
+    position: fixed;
+    top:80px;left: 40px;
+    transition: all 2s;
+  }
+  #yellow,#red,#blue{
+    width:60px;
+    height: 60px;
+    margin-top:60px;
+    border-radius: 50%;
+  }
+  #yellow{
+    margin-top:0;
+    background: yellow;
+  }
+  #yellow.active{
+    transform: scale(1.5)
+  }
+  #red{
+    background: red;
+  }
+  #red.active{
+    transform: scale(1.5)
+  }
+  #blue{
+    background: blue;
+  }
+  #blue.active{
+    transform: scale(1.5)
+  }
+
+
+</style>
+<body>
+  <canvas id="canvas" width=600 height=600></canvas>
+  <button id="eraser">橡皮檫</button>
+  <div id="color">
+    <div id="yellow"></div>
+    <div id="red"></div>
+    <div id="blue"></div>
+  </div>
+</body>
+<script>
+     yellow.onclick = function(){
+     yellow.classList.add('active')
+     red.classList.remove('active')
+     blue.classList.remove('active')
+     context.fillStyle='yellow'
+     context.strokeStyle='yellow'
+
+   }
+   red.onclick = function(){
+     red.classList.add('active')
+     yellow.classList.remove('active')
+     blue.classList.remove('active')
+     context.fillStyle='red'
+    context.strokeStyle='red'
+    }
+    blue.onclick = function(){
+      blue.classList.add('active')
+     red.classList.remove('active')
+     yellow.classList.remove('active')
+      context.fillStyle='blue'
+      context.strokeStyle='blue'
+    }
+
+  
+  var canvas = document.getElementById('canvas')
+  var context = canvas.getContext('2d')
+  
+  setPageSize()
+
+  
+window.onresize = function(){
+     setPageSize()
+}
+
+  var using = false
+  var lastpoint = {x:undefined,y:undefined}
+
+
+  if(document.body.ontouchstart !== undefined){
+    //触屏手机
+    canvas.ontouchstart = function(event){
+      x = event.touches[0].clientX
+      y = event.touches[0].clientY
+      if(eraserEnable){
+        using = true
+       context.clearRect(x-5,y-5,10,10)
+      }else{
+        using = true
+      lastpoint={x:x,y:y}
+      drawCricle(x,y,1)
+      }
+    
+
+    }
+
+ 
+    canvas.ontouchmove = function(event){
+        x = event.touches[0].clientX
+        y = event.touches[0].clientY
+      if(eraserEnable){
+        context.clearRect(x-5,y-5,10,10)
+      }else{
+        if(using){
+    var newpoint = {x:x,y:y}
+        drawCricle(x,y,1)
+        drawLine(lastpoint.x,lastpoint.y,newpoint.x,newpoint.y)
+        lastpoint = newpoint
+      }
+      }
+      
+     
+    }
+
+    canvas.ontouchend = function(){
+      using = false
+    }
+
+  }else{
+    //电脑
+    canvas.onmousedown = function(event){
+      x = event.clientX
+      y = event.clientY
+      if(eraserEnable){
+        using = true
+       context.clearRect(x-5,y-5,10,10)
+      }else{
+        using = true
+      lastpoint={x:x,y:y}
+      drawCricle(x,y,1)
+      }
+    
+
+    }
+
+ 
+    canvas.onmousemove = function(event){
+        x = event.clientX
+        y = event.clientY
+      if(eraserEnable){
+        context.clearRect(x-5,y-5,10,10)
+      }else{
+        if(using){
+    var newpoint = {x:x,y:y}
+        drawCricle(x,y,1)
+        drawLine(lastpoint.x,lastpoint.y,newpoint.x,newpoint.y)
+        lastpoint = newpoint
+      }
+      }
+      
+     
+    }
+
+    canvas.onmouseup = function(){
+      using = false
+    }
+
+  }
+   
+    var eraserEnable = false
+       eraser.onclick=function(){
+       eraserEnable = !eraserEnable
+    }
+
+
+    function drawCricle(x,y,radius){
+      context.beginPath()
+     
+      context.arc(x,y,radius,0,Math.PI*2)
+      context.fill()
+    }
+
+    function drawLine(x,y,x1,y1){
+      context.beginPath()
+   
+      context.moveTo(x,y)
+      context.lineWidth = 5
+      context.lineTo(x1,y1)
+      context.stroke()
+      context.closePath()
+    }
+
+
+    function setPageSize(){
+  var pageWidth = document.documentElement.clientWidth
+  var pageHeight = document.documentElement.clientHeight
+
+  canvas.width = pageWidth
+  canvas.height = pageHeight
+}
+
+</script>
+</html>

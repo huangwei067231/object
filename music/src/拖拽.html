@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      position: relative;
+      left: 100px;
+      top: 100px;
+      width: 200px;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+      font-size: 18px;
+      color: #fff;
+      background: lightcoral;
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">点我拖拽</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  // const box = document.querySelector('.box');
+
+  // box.addEventListener('mousedown', function(e) {
+  //   const startLeft = this.offsetLeft;
+  //   const startTop = this.offsetTop;
+    
+  //   const diffX = e.clientX - startLeft;
+  //   const diffY = e.clientY - startTop;
+
+  //   document.addEventListener('mousemove', move);
+
+  //   function move(e) {
+  //     let left = e.clientX - diffX;
+  //     let top = e.clientY - diffY;
+  //     const maxWidth =  document.documentElement.clientWidth - box.offsetWidth;
+  //     const maxHeight = document.documentElement.clientHeight - box.offsetHeight;
+
+  //     if (left <= 0) left = 0;
+  //     if (left >= maxWidth) left = maxWidth;
+  //     if (top <= 0) top = 0;
+  //     if (top >= maxHeight) top = maxHeight;
+
+  //     box.style.left = left + 'px';
+  //     box.style.top = top + 'px';
+  //   };
+
+  //   document.addEventListener('mouseup', function() {
+  //     this.removeEventListener('mousemove', move);
+  //   });
+  // });
+
+
+
+  $(function() {
+
+    const box = $('.box');
+    
+    box.on('mousedown', function(e) {
+      
+      const startLeft = $(this).offset().left;
+      const startTop = $(this).offset().top;
+
+      const diffX = e.clientX - startLeft;
+      const diffY = e.clientY - startTop;
+
+      $(document).on('mousemove', function(e) {
+        let left = e.clientX - diffX;
+        let top = e.clientY - diffY;
+        const maxWidth =  $(this).width() - box.width();
+        const maxHeight = $(this).height() - box.height();
+
+        if (left <= 0) left = 0;
+        if (left >= maxWidth) left = maxWidth;
+        if (top <= 0) top = 0;
+        if (top >= maxHeight) top = maxHeight;
+
+        $('.box').css('left', left);
+        $('.box').css('top', top);
+      });
+
+      $(document).on('mouseup', function() {
+        $(this).unbind();
+      })
+    })
+  })
+</script>
+</html>

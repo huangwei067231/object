@@ -1,0 +1,16 @@
+<!--logs.wxml-->
+<!-- <view class="container log-list">
+  <block wx:for="{{logs}}" wx:for-item="log">
+    <text class="log-item">{{index + 1}}. {{log}}</text>
+  </block>
+</view> -->
+<view class="login">
+  <view class="avatar">
+   <open-data type="useAvatarUrl"></open-data>
+  </view>
+  <view class="name-wrap">
+  <open-data type="useNickName" class="name"></open-data>
+  </view>
+    <button class='loginButton'>登录</button>
+    <text class='binding'>还没有PC端账号？去绑定 ></text>
+</view>

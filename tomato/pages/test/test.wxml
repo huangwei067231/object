@@ -1,0 +1,22 @@
+<view>{{msg}}</view>
+<button bindtap="clickMe">点我</button>
+<text id='name' wx:if="{{container}}" >{{msg}}</text>           
+<text id='name2' wx:if="{{container}}" >{{msg}}</text>
+
+
+<view wx:for="{{arr}}" wx:for-index="index" wx:for-item="itemName" wx:key="itemName.id">{{index}}:我是数组中的下标,{{itemName.id}}.{{itemName.text}}</view>
+
+<block><text>xxxxxx</text></block>
+
+wx:if=""
+wx:else
+hidden
+wx:for="" wx:for-item="" wx:key=""
+block
+
+<navigator url="/pages/index/index?id=1">xxx</navigator>
+
+
+<button bindtap="pushItem" >pushItem按钮</button>
+<view wx:for="{{Arr}}">{{index}}----{{item}}</view>
+

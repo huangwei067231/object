@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  #window{
+    width:727px;
+    height:400px;
+    margin:50px auto;
+    overflow:hidden;
+  }
+  .images{
+   display: flex;
+   transition:all 1s;
+  }
+
+  .images > img{
+   width: 100%;
+ 
+  }
+</style>
+<body>
+  <div id="window">
+    <div id="slides" class="images">
+      <img src="./4.jpg" alt="图片" width="727" height="400">
+      <img src="./5.jpg" alt="图片" width="727" height="400">
+      <img src="./6.jpg" alt="图片" width="727" height="400">
+   </div>
+ </div>
+    <div id="btn" style="text-align: center">
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+   </div>
+ 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+ <script>
+    let $buttons = $('#btn>button')
+    let $slides = $('#slides')
+    let $images = $slides.children('img')
+    let  current = 0
+ 
+  makeFakeslides()
+  $slides.css({transform:'translateX(-727px)'})
+  bindEvents()
+
+    function bindEvents(){
+      $buttons.eq(0).on('click',function(){
+      if(current === 2){//最后一个到第一个
+        $slides.css({transform:'translateX(-2908px)'}).one('transitionend', function(){
+          $slides.hide()
+          .offset()
+          $slides.css({transform:'translateX(-727px)'})
+          .show()
+        })
+      }else{
+        $slides.css({transform:'translateX(-727)'})
+      }
+      current = 0
+      
+    })
+
+    $buttons.eq(1).on('click',function(){
+      $slides.css({transform:'translateX(-1454px)'})
+      current = 1
+    })
+
+    $buttons.eq(2).on('click',function(){//第一个到最后一个
+      if(current === 0){
+        $slides.css({transform:'translateX(0px)'}).one('transitionend', function(){
+          $slides.hide()
+          .offset()
+          $slides.css({transform:'translateX(-2181px)'})
+          .show()
+        })
+      }else{
+        $slides.css({transform:'translateX(-2181px)'})
+      }
+      current = 2
+    })
+    }
+   
+
+    function makeFakeslides(){
+    let $firstcopy =$images.eq(0).clone(true)
+    let $lastcopy = $images.eq($images.length-1).clone(true)
+
+   $slides.append($firstcopy)
+   $slides.prepend($lastcopy)
+ } 
+
+  </script>
+</body>
+</html>

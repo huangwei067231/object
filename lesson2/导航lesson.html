@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  html,body{
+    margin: 0;
+    padding:0;
+  }
+  kbd{
+    display: inline-block;
+    width:4em;
+    height: 4em;
+    border:1px solid red;
+    text-transform: uppercase;
+    margin:4px 4px;
+    position: relative;
+  }
+  div:nth-child(2){
+      margin-left:2em;
+  }
+  div:nth-child(3){
+      margin-left:4em;
+  }
+  #M{
+    margin-top:15%;
+    text-align: center;
+  
+  }
+  button{
+    position: absolute;
+    right:0;
+    bottom:0;
+  }
+</style>
+<body>
+  <div id="M"></div>
+  <script>
+  var keys={'0':{'0':'q','1':'w','2':'e','3':'r','4':'t','5':'y','6':'u','7':'i','8':'o','9':'p',length:10},
+            '1':{'0':'a','1':'s','2':'d','3':'f','4':'g','5':'h','6':'j','7':'k','8':'l',length:9},
+            '2':{'0':'z','1':'x','2':'c','3':'v','4':'b','5':'n','6':'m',length:7},
+             'length':3}
+  var hash={'q':'qq.com','w':'wad.com','e':'ele.me','r':'raa.com','t':'t.com',
+  'y':'y.com','u':'u.com','i':'i.com','o':'o.com','p':'p.com'}  
+  
+  var hashinlocalStorge=JSON.parse(localStorage.getItem('uuu')||'')
+  if(hashinlocalStorge){
+    hash=hashinlocalStorge
+  }
+
+     index = 0;
+
+   
+    while( index< keys.length){  //0 1 2
+      div1=document.createElement('div')
+      M.appendChild(div1)
+      row = keys[index]
+    index1=0
+    while(index1<row.length){
+      kbd1=document.createElement('kbd')
+      kbd1.textContent=row[index1]
+      div1.appendChild(kbd1)
+      button=document.createElement('button')
+      kbd1.appendChild(button)
+      button.id=row[index1]
+      button.textContent='编辑'
+      button.onclick=function(current){
+        id=current.target.id
+        web=prompt('请输入网站')
+        hash[id]=web
+        localStorage.setItem ('uuu',JSON.stringify(hash))
+    }
+      index1=index1+1
+      } 
+      index=index+1
+    } 
+    document.onkeypress=function(onclick){
+      key = onclick.key
+      console.log(key)
+      website =hash[key]
+      console.log(hash[key])
+    //  location.href='https://'+ website
+      window.open('http://'+ website,'_blank')
+    }
+
+   
+
+   // document.prompt('请输入网站')
+     
+     
+      
+    
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  p{
+    white-space: nowrap;
+    background-clip: content-box
+  }
+</style>
+<body>
+    <script>
+      var array1 = [1,2,2,2,3,3,4,5,6,6]
+      var array2 = []
+       
+      for(let i=0;i<array1.length-1;i++){      
+         if(array2.indexOf(array1[i]) < 0){
+           array2.push(array1[i])
+         }
+      }
+     
+      console.log(array2)
+/////////////////////////////////////////////////////////////////
+      var arr = Array.from(new Array(100).keys());
+      var res=arr.filter((currentItem, index)=>{
+            if (index > arr.length - 11) {
+              return currentItem 
+            }    
+          
+  })
+      console.log(res)
+//////////////////////////////////////////////////////////////
+  var Arr = [1,2,3,4,5,6,7,8]
+  var data=Arr.filter((currentIndex)=>{
+       return currentIndex >  Arr.length-3     
+  })
+ // console.log(data)
+
+
+  //////////////////////////////////////////深拷贝
+  var deepClone = function (obj) {
+    var tmp,result;
+    tmp = JSON.stringify(obj);
+    result = JSON.parse(tmp);
+    return result;
+ }
+var obj1 = {family:{brother:"wangzhipeng",father:"wanglicai",mother:"sunaiyun"},name:"gino",sex:"male",age:"27"};
+var obj2 = deepClone(obj1);
+obj1.family.brother = "close";
+console.log(obj1); 
+console.log(obj2); 
+
+///////////////////////////////////////////////////////////////////////
+      var str="URL：http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e";
+      var arr1=str.split("?")[1]
+
+      var arr2=arr1.split("&")
+        console.log(arr2)
+
+      var obj={};
+          for(var i=0;i<arr2.length;i++){
+            var arr=arr2[i] //a=1 b=2 c= d=xxx e
+        
+            var pro=arr[0] //a b c d e
+       
+            var len=arr.substring(1)
+            
+         if(len=="="){
+            len=" "
+        }if(len==""){
+            len="undefined"
+     }
+            console.log(len)  //=1 =2  ...
+            len=len.replace(/[=]/,"")
+            console.log(len)  // 1 2 "" xxx undefined
+            obj[pro]=len;
+
+  }
+  console.log(obj)
+
+      
+///////////////////////////////////////////////////////////////////////
+function Mgn(num1,num2){  
+    var temp=0;  
+    while(num2!=0){     //当num2==0时,最大公约数为num1  
+        temp=num1%num2;  
+        num1=num2;  
+        num2=temp;  
+    }  
+    return num1;  
+} 
+
+
+
+
+function Mgn(num1,num2){  
+    return num2!=0 ? Mgn(num2,num1%num2) : num1;//整个函数的实现只需要一行代码  
+}  
+var p=Mgn(0,-15);  
+var q=Mgn(45,81);  
+var u=Mgn(-15,3);  
+console.log(p);//-15  
+console.log(q);//9  
+console.log(u);//3  
+
+////////////////////////////////////冒泡排序
+var examplearr=[8,94,15,88,55,76,21,39];
+
+function sortarr(arr){
+    for(i=0;i<arr.length-1;i++){
+
+        for(j=0;j<arr.length-1-i;j++){
+            if(arr[j]>arr[j+1]){
+                var temp=arr[j];
+                
+                arr[j]=arr[j+1];
+                
+                arr[j+1]=temp;
+            }
+        }
+    }
+    return arr;
+}
+sortarr(examplearr);
+console.log(examplearr);
+
+
+//防抖
+  function debounce(fn,wait){
+    var timer = null
+    return function(){
+      if(timer){
+        clearTimeout(timer)
+       timer = setTimeout(()=>{
+          fn.apply(this,arguments)
+       },wait)
+      }
+    }
+  }
+  let fn = ()=>{console.log('执行很少次')}
+   fn = debounce(fn,1000)
+
+   document.body.onscroll = fn
+
+   //节流
+   function throttle(fn,gapTime){
+     let nowTime = null
+     let lastTime = null
+     return function(){
+       nowTime = Date.now()
+       if(!lastTime || lastTime - nowTime > gapTime){
+         fn()
+         lastTime = nowTime
+       }
+
+     }
+   }
+ let fn = ()=>{console.log('执行了')}
+     fn = throttle(fn,1000)
+
+     document.body.onscroll = fn
+      </script>
+</body>
+</html>
